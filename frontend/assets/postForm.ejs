@@ -1,0 +1,24 @@
+async function enviaPost(nome, sobrenome, email) {
+    let data;
+    const strnome = nome.replaceAll(' ', '%20');
+    const strsobrenome = sobrenome.replaceAll(' ', '%20');
+    const stremail = email.replaceAll(' ', '%20');
+    const query = `nome=${strnome}&sobrenome=${strsobrenome}&email=${stremail}`
+
+    await axios({
+            method: 'POST',
+            url: 'http://138.68.29.250:8082/',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            data: query,
+        })
+        .then(res => {
+            data = res.data;
+        })
+        .catch(err => {
+            console.error('Erro: ', err);
+        })
+
+    return data;
+}

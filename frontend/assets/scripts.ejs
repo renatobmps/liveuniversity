@@ -1,0 +1,43 @@
+<script src="vendors/jquery/jquery-3.6.0.min.js"></script>
+<script src="vendors/semantic-ui/semantic.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    const campos = {
+        nome: {
+            dom: document.querySelector('#nome'),
+            required: true,
+            min: 3,
+        },
+        sobrenome: {
+            dom: document.querySelector('#sobrenome'),
+            required: true,
+            min: 3,
+        },
+        email: {
+            dom: document.querySelector('#email'),
+            required: true,
+            min: 8,
+        },
+    };
+
+    const submit = document.querySelector('button[type="submit"]');
+    const formulario = document.querySelector('#form-cadastro');
+
+    <%- include('controllerCampos'); %>
+    <%- include('postForm'); %>
+
+    formulario.addEventListener('submit', (e) => {
+        e.preventDefault();
+        submit.classList.add('loading')
+        enviaPost(
+                campos.nome.dom.value,
+                campos.sobrenome.dom.value,
+                campos.email.dom.value
+            )
+            .then(res => {
+                console.log(res);
+                limpaCampos();
+                submit.classList.remove('loading')
+            })
+    })
+</script>

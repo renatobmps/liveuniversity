@@ -1,0 +1,69 @@
+Object.keys(campos).forEach(c => {
+    campos[c].dom.addEventListener('input', () => {
+        validacao(
+            c,
+            campos[c].dom,
+            campos[c].required,
+            campos[c].min
+        );
+    })
+})
+
+function validacao(name, dom, required, min) {
+    if (isRequired(dom, required)) {
+        if (isEmpty(dom) == false && isMin(dom, min) == true) {
+            campos[name].valido = true;
+        } else {
+            campos[name].valido = false;
+        }
+    } else {
+        campos[name].valido = true;
+    }
+
+    let lista = [];
+    Object.keys(campos).forEach(c => {
+        if (campos[c].required == true) {
+            if (campos[c].required == true && campos[c].valido == true) {
+                lista.push(true);
+            } else {
+                lista.push(false);
+            }
+        } else {
+            lista.push(true);
+        }
+    });
+
+    if (lista.includes(false)) {
+        submit.disabled = true;
+    } else {
+        submit.disabled = false;
+    }
+}
+
+function isRequired(dom, required) {
+    if (required) {
+        dom.required = true;
+        return true;
+    }
+    return false;
+}
+
+function isEmpty(dom) {
+    if (!dom.value == '') {
+        return false;
+    }
+    return true;
+}
+
+function isMin(dom, min) {
+    if (dom.value.length >= min) {
+        return true;
+    }
+    return false;
+}
+
+function limpaCampos(){
+    campos.nome.dom.value = '';
+    campos.sobrenome.dom.value = '';
+    campos.email.dom.value = '';
+}
