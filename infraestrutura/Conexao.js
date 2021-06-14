@@ -1,6 +1,6 @@
 const tp = require('tedious-promises');
 const TYPES = require('tedious').TYPES;
-const config = require('./tedious-config.json');
+const config = require('../tedious-config.json');
 
 tp.setConnectionConfig(config);
 

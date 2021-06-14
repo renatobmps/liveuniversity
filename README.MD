@@ -22,7 +22,7 @@ Para rodar o projeto, basta seguir os processos básicos do nome com npm e forne
 
 ## Configurando o banco de dados
 
-Crie o arquivo tedious-config.json dentro de /infraestrutura com as seguintes informações:
+Crie o arquivo tedious-config.json na raiz do projeto com as seguintes informações:
 
 ```
 {
