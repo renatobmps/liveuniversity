@@ -1,7 +1,7 @@
 const ejs = require('ejs');
 
 class FormularioView {
-    
+
     render(camposForm) {
         const campos = camposForm;
         let htmlTemplate;
@@ -12,7 +12,7 @@ class FormularioView {
             },
             (err, html) => {
                 if (err) {
-                    console.log('Erro com renderFile: ', err);
+                    throw new Error('Erro com renderFile: ', err);
                 }
                 htmlTemplate = html;
             }

@@ -23,6 +23,8 @@
     const submit = document.querySelector('button[type="submit"]');
     const formulario = document.querySelector('#form-cadastro');
 
+    campos.nome.dom.focus();
+
     <%- include('controllerCampos'); %>
     <%- include('postForm'); %>
 
@@ -35,9 +37,57 @@
                 campos.email.dom.value
             )
             .then(res => {
-                console.log(res);
-                limpaCampos();
-                submit.classList.remove('loading')
+                let convertido = res.split('#');
+                convertido = {
+                    'nome': convertido[1],
+                    'sobrenome': convertido[3],
+                    'email': convertido[5],
+                }
+
+                const query = `n=${campos.nome.dom.value}&nid=${convertido.nome}&s=${campos.sobrenome.dom.value}&sid=${convertido.sobrenome}&e=${campos.email.dom.value}&eid=${convertido.email}`;
+
+                axios({
+                        method: 'POST',
+                        url: 'http://localhost:3000/form-post',
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        data: query,
+                    })
+                    .then(async(res) => {
+                        const {
+                            animal,
+                            cor,
+                            pais
+                        } = await res.data;
+                        limpaCampos();
+                        submit.classList.remove('loading');
+                        criaPopUp(animal, cor, pais);
+                    })
+                    .catch(err => {
+                        console.error('Erro: ', err);
+                        submit.classList.remove('loading');
+                    })
             })
+            .catch('Não foi possível salvar!')
     })
+
+    function criaPopUp(animal, cor, pais) {
+        const popup = `
+        <div class="ui tiny modal">
+            <div class="header">Resultado</div>
+            <div class="content">
+                <p><strong>Animal:</strong> ${animal}</p>
+                <p><strong>Cor:</strong> ${cor}</p>
+                <p><strong>País:</strong> ${pais}</p>
+            </div>
+            <div class="actions">
+                <button class="ui primary button" onClick='window.location.reload()'><i class="undo alternate icon"></i> Recomeçar</button>
+            </div>
+        </div>`;
+
+        document.querySelector('body').innerHTML += popup;
+
+        $('.ui.modal').modal('show');
+    };
 </script>

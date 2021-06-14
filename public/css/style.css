@@ -1,3 +1,7 @@
+:root {
+  --principal: #8f2694;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,60 +13,63 @@
 }
 
 body {
-  background: #8f2694;
+  background: var(--principal);
 }
 
 @keyframes loading {
-    from{
-        transform: translate(-50%, -50%) scale(.8);
-        transform-origin: center;
-        opacity: 0;
-    }
-    to{
-        transform: translate(-50%, -50%) scale(1);
-        transform-origin: center;
-        opacity: 1;
-    }
+  from {
+    transform: translate(-50%, -50%) scale(0.8);
+    transform-origin: center;
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: center;
+    opacity: 1;
+  }
 }
 
-.container{
-    background: white;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: 2rem;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 30rem;
-    animation: loading 1s;
+@keyframes showResult {
+  to {
+    opacity: 1;
+    transform: translate(50%, 50%);
+  }
 }
 
-#form-cadastro label{
+.container {
+  background: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 30rem;
+  animation: loading 1s;
+}
+
+input {
+  color: black !important;
+  font-weight: bold;
+}
+
+#form-cadastro label {
   text-transform: capitalize;
 }
 
-/* .form-cadastro {
-  display: flex;
-  flex-direction: column;
+.pop-up {
+  position: fixed;
+  right: 50%;
+  bottom: 50%;
+  transform: translate(50%, 100%);
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 10px;
+  min-width: 250px;
+  opacity: 0;
+  z-index: 100;
+  animation: showResult 1s forwards;
+  box-shadow: 0px 0px 1px 9999px #00000087;
+  color: var(--principal);
 }
-
-.form-cadastro input,
-.form-cadastro select,
-.form-cadastro textarea {
-  margin: 1rem 0;
-  padding: 1rem;
-} */
-
-/* .form-cadastro label {
-  transform: translate(4%, 280%);
-  color: gray;
-  transition: 0.3s;
-}
-
-label.selecionado {
-  transform: translate(0%, 50%) scale(0.8);
-  transform-origin: 0 0;
-  transition: 0.3s;
-  color: black;
-} */
